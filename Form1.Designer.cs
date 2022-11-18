@@ -75,6 +75,7 @@ namespace LABA6
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(100, 20);
             this.textBox9.TabIndex = 35;
+            this.textBox9.Click += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // textBox8
             // 
@@ -82,6 +83,7 @@ namespace LABA6
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(100, 20);
             this.textBox8.TabIndex = 34;
+            this.textBox8.Click += new System.EventHandler(this.textBox8_TextChanged);
             // 
             // label8
             // 
@@ -98,6 +100,7 @@ namespace LABA6
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(100, 20);
             this.textBox7.TabIndex = 32;
+            this.textBox7.Click += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // textBox6
             // 
@@ -105,6 +108,7 @@ namespace LABA6
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 20);
             this.textBox6.TabIndex = 31;
+            this.textBox6.Click += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label7
             // 
@@ -130,6 +134,7 @@ namespace LABA6
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 28;
+            this.textBox5.Click += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // label5
             // 
@@ -146,6 +151,7 @@ namespace LABA6
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 26;
+            this.textBox4.Click += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label4
             // 
@@ -162,6 +168,7 @@ namespace LABA6
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 24;
+            this.textBox3.Click += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label3
             // 
@@ -178,6 +185,7 @@ namespace LABA6
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 22;
+            this.textBox2.Click += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox1
             // 
@@ -185,6 +193,7 @@ namespace LABA6
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 21;
+            this.textBox1.Click += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label2
             // 

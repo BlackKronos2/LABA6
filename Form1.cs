@@ -57,5 +57,50 @@ namespace LABA6
 
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            textBox2.Clear();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            textBox3.Clear();
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            textBox4.Clear();
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            textBox5.Clear();
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            textBox6.Clear();
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            textBox7.Clear();
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+            textBox8.Clear();
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)
+        {
+            textBox9.Clear();
+        }
     }
 }

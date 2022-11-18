@@ -116,6 +116,11 @@ namespace LABA6
                 this.Hide();
             }
         }
+
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+        }
     }
     public class Warrior
     {
