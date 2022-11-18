@@ -33,8 +33,9 @@ namespace LABA6
                 int amount_hlr = Convert.ToInt32(textBox9.Text);
 
                 foreach (TextBox box in textBoxes) {
-                    if (Convert.ToInt32(box) < 0 || box.Text == string.Empty) {
+                    if (Convert.ToInt32(box.Text) <= 0 || box.Text == string.Empty) {
                         box.Text = "Ошибка";
+                        throw new Exception();
                     }
                 }
 

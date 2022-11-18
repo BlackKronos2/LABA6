@@ -58,6 +58,8 @@ namespace LABA6
             {
                 int index = Convert.ToInt32(textBox1.Text);
 
+                if (textBox1.Text == string.Empty) throw new Exception();
+
                 var group = (battle.Active_group_number == 1) ? (battle.Group2) : (battle.Group1);
                 int count = group.L_h + group.L_w;
 
@@ -80,14 +82,23 @@ namespace LABA6
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int index = Convert.ToInt32(textBox1.Text);
+            try
+            {
+                int index = Convert.ToInt32(textBox1.Text);
 
-            textBox1.Text = (battle.Heal(index)) ? ("") : ("Неверный индекс");
-            battle.HPСalculation();
-            battle.Progress();
-            List();
-            NewMove();
-
+                if (battle.Heal(index))
+                {
+                    battle.HPСalculation();
+                    battle.Progress();
+                    List();
+                    NewMove();
+                }
+                else
+                    textBox1.Text = "Неверный индекс";
+            }
+            catch {
+                textBox1.Text = "Ошибка";
+            }
         }
 
         private void CharacterCount()
@@ -557,7 +568,7 @@ namespace LABA6
         {
             var group = (active_group_number == 1) ? (Group1) : (Group2);
 
-            if ((index - 1) == group.Active_hum_number) return false;
+            if (index == group.Active_hum_number) return false;
 
             if (index <= group.L_w)
             {
