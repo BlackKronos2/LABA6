@@ -168,6 +168,7 @@ namespace LABA6
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
             this.Name = "Form2";
+            this.ShowIcon = false;
             this.Text = "Меню боя";
             this.ResumeLayout(false);
             this.PerformLayout();

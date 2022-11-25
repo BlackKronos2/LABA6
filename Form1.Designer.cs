@@ -238,6 +238,7 @@ namespace LABA6
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
+            this.ShowIcon = false;
             this.Text = "Начальные настройки";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
