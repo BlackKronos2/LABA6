@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LABA6
 {
@@ -55,12 +51,6 @@ namespace LABA6
                     log += $"{j + i + 1}. {hlr.Name} {hlr.Health} / {hlr.Max_health} \n";
             }
             return log;
-        }
-        public int ActiveCharapter()
-        {
-            var group = (active_group_number == 1) ? (Group1) : (Group2);
-
-            return group.Active_hum_number;
         }
         public int Active_group_number
         {

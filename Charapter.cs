@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LABA6
 {
@@ -15,24 +11,6 @@ namespace LABA6
         protected int recovery;
         protected bool alive;
 
-        public Charapter()
-        {
-            this.name = "";
-            this.alive = false;
-            this.health = 0;
-            this.max_health = 0;
-            this.impact_strength = 0;
-            this.recovery = 0;
-        }
-        public Charapter(string n, int max_h, int im_str, int rec)
-        {
-            name = n;
-            max_health = max_h;
-            health = max_h;
-            impact_strength = im_str;
-            recovery = rec;
-            alive = true;
-        }
         public string Name
         {
             set
@@ -103,7 +81,6 @@ namespace LABA6
             set { this.alive = value; }
             get { return alive; }
         }
-
         public void Damage(int a)
         {
             if (health - a <= 0)
@@ -118,11 +95,9 @@ namespace LABA6
             else
                 health += a;
         }
-
         public virtual int Strike_at_war() {
             return impact_strength;
         }
-
         public virtual int Strike_at_hiler()
         {
             return impact_strength;
