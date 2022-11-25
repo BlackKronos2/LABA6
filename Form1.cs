@@ -13,15 +13,28 @@ namespace LABA6
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            TextBox[] textBoxes = { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9 };
+            foreach (TextBox box in textBoxes)
+            {
+                box.Text = "";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            TextBox[] textBoxes = { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9 };
+
             try
             {
-                TextBox[] textBoxes = { textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9 };
-
+                int index = 0;
+                foreach (TextBox box in textBoxes)
+                {
+                    if (box.Text == string.Empty || box.Text == "")
+                    {
+                        throw new Exception($"Empty {index}");
+                    }
+                    index++;
+                }
                 int mx_hlth_wr = Convert.ToInt32(textBox1.Text);
                 int mx_hlth_hlr = Convert.ToInt32(textBox2.Text);
                 int imp_strngth1 = Convert.ToInt32(textBox3.Text);
@@ -33,7 +46,8 @@ namespace LABA6
                 int amount_hlr = Convert.ToInt32(textBox9.Text);
 
                 foreach (TextBox box in textBoxes) {
-                    if (Convert.ToInt32(box.Text) <= 0 || box.Text == string.Empty) {
+                    if (Convert.ToInt32(box.Text) <= 0)
+                    {
                         box.Text = "Ошибка";
                         throw new Exception();
                     }
@@ -41,8 +55,9 @@ namespace LABA6
 
                 if (amount_war == 0 && amount_hlr == 0 || amount_war < 0 || amount_hlr < 0)
                 {
-                    throw new Exception("Много");
-                }         
+                    if (amount_war == 0) throw new Exception("8");
+                    throw new Exception();
+                }
 
                 Group group1 = new Group(mx_hlth_wr, mx_hlth_hlr, imp_strngth1, imp_strngth2, imp_hlr, rec1, rec2, amount_war, amount_hlr);
                 Group group2 = new Group(mx_hlth_wr, mx_hlth_hlr, imp_strngth1, imp_strngth2, imp_hlr, rec1, rec2, amount_war, amount_hlr);
@@ -52,55 +67,62 @@ namespace LABA6
                 this.Hide();
 
             }
-            catch
-            {
+            catch (Exception ex) {
+                if (ex.Message[0] == 'E') {
+                    string index =
+                    ex.Message[ex.Message.Length - 2].ToString() +
+                    ex.Message[ex.Message.Length - 1].ToString();
 
+                    int number = Convert.ToInt32(index);
+
+                    textBoxes[number].Text = "Ошибка";
+                }
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            textBox1.Clear();
+            textBox1.Text = "";
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            textBox2.Clear();
+            textBox2.Text = "";
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            textBox3.Clear();
+            textBox3.Text = "";
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            textBox4.Clear();
+            textBox4.Text = "";
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            textBox5.Clear();
+            textBox5.Text = "";
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-            textBox6.Clear();
+            textBox6.Text = "";
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            textBox7.Clear();
+            textBox7.Text = "";
         }
 
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
-            textBox8.Clear();
+            textBox8.Text = "";
         }
 
         private void textBox9_TextChanged(object sender, EventArgs e)
         {
-            textBox9.Clear();
+            textBox9.Text = "";
         }
     }
 }
