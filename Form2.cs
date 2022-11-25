@@ -58,25 +58,27 @@ namespace LABA6
             {
                 int index = Convert.ToInt32(textBox1.Text);
 
-                if (textBox1.Text == string.Empty) throw new Exception();
+                if (textBox1.Text == string.Empty || textBox1.Text == "") throw new Exception();
 
                 var group = (battle.Active_group_number == 1) ? (battle.Group2) : (battle.Group1);
                 int count = group.L_h + group.L_w;
 
-                if (index > count)
-                {
-                    throw new Exception("Много");
-                }
-                textBox1.Text = (battle.Attack(index)) ? ("") : ("Неверный индекс");
+                battle.Attack(index);
+ 
                 battle.HPСalculation();
                 battle.Progress();
                 List();
                 NewMove();
                 CharacterCount();
             }
-            catch
+            catch(Exception ex)
             {
-                textBox1.Text = "Ошибка!";
+                if (ex.Message != "")
+                {
+                    textBox1.Text = ex.Message;
+                }
+                else
+                    textBox1.Text = "Ошибка!";
             }
         }
 
@@ -86,18 +88,17 @@ namespace LABA6
             {
                 int index = Convert.ToInt32(textBox1.Text);
 
-                if (battle.Heal(index))
-                {
-                    battle.HPСalculation();
-                    battle.Progress();
-                    List();
-                    NewMove();
-                }
-                else
-                    textBox1.Text = "Неверный индекс";
+                battle.Heal(index);
+                battle.HPСalculation();
+                battle.Progress();
+                List();
+                NewMove();
             }
-            catch {
-                textBox1.Text = "Ошибка";
+            catch (Exception ex) {
+                if (ex.Message != "")
+                    textBox1.Text = "Ошибка " + ex.Message;
+                else
+                    textBox1.Text = "Ошибка";
             }
         }
 
@@ -336,14 +337,14 @@ namespace LABA6
             if (index <= L_w)
             {
                 var war = War_Index(index - 1);
-                return $"Сейчас ходит: \n {war.Name} \n Здоровье {war.Health}/{war.Max_health}\n " +
+                return $"{war.Name} \n Здоровье {war.Health}/{war.Max_health}\n " +
                     $"Сила удара: {war.Impact_strength}\n Естественная регенерация: {war.Recovery}";
             }
             else
             {
                 index -= L_w;
                 var hlr = Hlr_index(index - 1);
-                return $"Сейчас ходит: \n {hlr.Name} \n Здоровье {hlr.Health}/{hlr.Max_health}\n " +
+                return $"{hlr.Name} \n Здоровье {hlr.Health}/{hlr.Max_health}\n " +
                     $"Сила удара: {hlr.Impact_strength}\n Сила регенерации: {hlr.Impact_treatment}\nЕстественная регенерация: {hlr.Recovery}";
             }
         }
@@ -537,22 +538,24 @@ namespace LABA6
 
             HPСalculation();
         }
-        public bool Attack(int index)
+        public void Attack(int index)
         {
+            if (index <= 0) throw new Exception("Индекс меньше или равен 0");
+
             var group_a = (active_group_number == 1) ? (Group1) : (Group2);
             var group_d = (active_group_number != 1) ? (Group1) : (Group2);
+
+            if (index > group_d.L_h + group_d.L_w) throw new Exception("Индекс слишком большой");
 
             if (index <= group_d.L_w)
             {
                 if (group_a.Active_hum_number <= group_a.L_w)
                 {
                     group_d.War_Index(index - 1).Damage(group_a.War_Index(group_a.Active_hum_number - 1).Strike_at_war());
-                    return true;
                 }
                 else
                 {
                     group_d.War_Index(index - 1).Damage(group_a.Hlr_index(group_a.Active_hum_number - group_a.L_w - 1).Strike_at_hiler());
-                    return true;
                 }
             }
             else
@@ -560,12 +563,10 @@ namespace LABA6
                 if (group_a.Active_hum_number <= group_a.L_w)
                 {
                     group_d.Hlr_index(index - group_d.L_w - 1).Damage(group_a.War_Index(group_a.Active_hum_number - 1).Strike_at_war());
-                    return true;
                 }
                 else
                 {
                     group_d.Hlr_index(index - group_d.L_w - 1).Damage(group_a.Hlr_index(group_a.Active_hum_number - group_a.L_w - 1).Strike_at_hiler());
-                    return true;
                 }
             }
         }
@@ -573,7 +574,7 @@ namespace LABA6
         {
             var group = (active_group_number == 1) ? (Group1) : (Group2);
 
-            if (index == group.Active_hum_number) return false;
+            if (index == group.Active_hum_number) throw new Exception("Нельзя лечить самого себя");
 
             if (index <= group.L_w)
             {
@@ -618,7 +619,6 @@ namespace LABA6
                     group2.Delete_character(2, i);
                 }
         }
-
         public int Losses1
         {
             get { return losses1; }
