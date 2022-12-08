@@ -124,5 +124,12 @@ namespace LABA6
         {
             textBox9.Text = "";
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form2 Form2 = new Form2();
+            Form2.Show();
+            this.Hide();
+        }
     }
 }

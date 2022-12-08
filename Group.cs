@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace LABA6
 {
+    [DataContract]
     public class Group
     {
+        [DataMember]
         private const int l1 = 15;
+        [DataMember]
         private const int l2 = 5;
+        [DataMember]
         private Warrior[] group_war = new Warrior[l1];
+        [DataMember]
         private Healer[] group_hlr = new Healer[l2];
+        [DataMember]
         private int l_w;
+        [DataMember]
         private int l_h;
 
+        [DataMember]
         private int active_hum_number;
 
         public Group(int mx_hlth_wr, int mx_hlth_hlr, int imp_strngth1, int imp_strngth2, int imp_hlr, int rec1, int rec2, int amount_war, int amount_hlr)

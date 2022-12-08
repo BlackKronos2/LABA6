@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace LABA6
 {
+    [DataContract]
     public class Healer : Charapter
     {
+        [DataMember]
         private int impact_treatment;
         public Healer()
         {

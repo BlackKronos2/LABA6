@@ -1,14 +1,22 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace LABA6
 {
+    [DataContract]
     public class Battle
     {
+        [DataMember]
         Group group1;
+        [DataMember]
         Group group2;
+        [DataMember]
         int active_group_number;
 
+        [DataMember]
         int moves;
+        [DataMember]
         int losses1, losses2;
 
         public Group Group1

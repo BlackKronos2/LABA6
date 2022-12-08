@@ -10,3 +10,5 @@ C:\Users\arefe\source\repos\LABA6\obj\Debug\LABA6.csproj.CoreCompileInputs.cache
 C:\Users\arefe\source\repos\LABA6\obj\Debug\LABA6.exe
 C:\Users\arefe\source\repos\LABA6\obj\Debug\LABA6.pdb
 C:\Users\arefe\source\repos\LABA6\obj\Debug\LABA6.Form3.resources
+C:\Users\arefe\source\repos\LABA6\bin\Debug\Newtonsoft.Json.dll
+C:\Users\arefe\source\repos\LABA6\bin\Debug\Newtonsoft.Json.xml

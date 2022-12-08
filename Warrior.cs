@@ -1,6 +1,9 @@
-﻿
+﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+
 namespace LABA6
 {
+    [DataContract]
     public class Warrior: Charapter
     {
         public Warrior()

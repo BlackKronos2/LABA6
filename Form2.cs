@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.IO;
 
 namespace LABA6
 {
@@ -10,6 +13,17 @@ namespace LABA6
         public Form2()
         {
             InitializeComponent();
+
+            DataContractSerializer jsonF = new DataContractSerializer(typeof(Battle));
+
+            using (FileStream fileStream = new FileStream("battle.json", FileMode.OpenOrCreate)) 
+            {
+                Battle loadbattle = (Battle)jsonF.ReadObject(fileStream);
+                battle = loadbattle;
+            }
+
+            List();
+            NewMove();
         }
         public Form2(Battle a)
         {
@@ -121,6 +135,21 @@ namespace LABA6
         private void textBox1_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DataContractSerializer jsonF = new DataContractSerializer(typeof(Battle));
+
+            using (FileStream fileStream = new FileStream("battle.json" , FileMode.OpenOrCreate)) 
+            {
+                jsonF.WriteObject(fileStream, battle);      
+            }
         }
     }
 }

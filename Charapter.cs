@@ -1,14 +1,24 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+
 
 namespace LABA6
 {
+    [DataContract]
     public class Charapter
     {
+        [DataMember]
         protected string name;
+        [DataMember]
         protected int health;
+        [DataMember]
         protected int max_health;
+        [DataMember]
         protected int impact_strength;
+        [DataMember]
         protected int recovery;
+        [DataMember]
         protected bool alive;
 
         public string Name
