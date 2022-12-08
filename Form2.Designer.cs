@@ -41,6 +41,7 @@ namespace LABA6
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -150,11 +151,22 @@ namespace LABA6
             this.label5.TabIndex = 11;
             this.label5.Text = "Сейчас ходит:";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(274, 616);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(118, 23);
+            this.button4.TabIndex = 12;
+            this.button4.Text = "Сохранить и выйти";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 717);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -191,5 +203,6 @@ namespace LABA6
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button4;
     }
 }

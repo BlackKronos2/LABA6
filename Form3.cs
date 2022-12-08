@@ -20,7 +20,8 @@ namespace LABA6
 
         private void Form3_Load(object sender, EventArgs e)
         {
-
+            Properties.Settings.Default.Load = false;
+            Properties.Settings.Default.Save();
         }
     }
 }

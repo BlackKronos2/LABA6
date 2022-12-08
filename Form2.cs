@@ -16,7 +16,7 @@ namespace LABA6
 
             DataContractSerializer jsonF = new DataContractSerializer(typeof(Battle));
 
-            using (FileStream fileStream = new FileStream("battle.json", FileMode.OpenOrCreate)) 
+            using (FileStream fileStream = new FileStream("battle.json", FileMode.Open)) 
             {
                 Battle loadbattle = (Battle)jsonF.ReadObject(fileStream);
                 battle = loadbattle;
@@ -139,17 +139,37 @@ namespace LABA6
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            richTextBox1.Enabled = richTextBox2.Enabled = richTextBox3.Enabled = false;
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Properties.Settings.Default.Load = true;
+            Properties.Settings.Default.Save();
+
             DataContractSerializer jsonF = new DataContractSerializer(typeof(Battle));
 
-            using (FileStream fileStream = new FileStream("battle.json" , FileMode.OpenOrCreate)) 
+            using (FileStream fileStream = new FileStream("battle.json" , FileMode.Create)) 
             {
                 jsonF.WriteObject(fileStream, battle);      
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Load = true;
+            Properties.Settings.Default.Save();
+
+            DataContractSerializer jsonF = new DataContractSerializer(typeof(Battle));
+
+            using (FileStream fileStream = new FileStream("battle.json", FileMode.Create))
+            {
+                jsonF.WriteObject(fileStream, battle);
+            }
+
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide();
         }
     }
 }

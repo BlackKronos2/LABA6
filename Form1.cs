@@ -18,6 +18,9 @@ namespace LABA6
             {
                 box.Text = "";
             }
+
+            //button2.Enabled = true;
+            button2.Enabled = Properties.Settings.Default.Load;
         }
 
         private void button1_Click(object sender, EventArgs e)
