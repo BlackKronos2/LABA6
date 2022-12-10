@@ -62,10 +62,10 @@ namespace LABA6
                     throw new Exception();
                 }
 
-                Group group1 = new Group(mx_hlth_wr, mx_hlth_hlr, imp_strngth1, imp_strngth2, imp_hlr, rec1, rec2, amount_war, amount_hlr);
-                Group group2 = new Group(mx_hlth_wr, mx_hlth_hlr, imp_strngth1, imp_strngth2, imp_hlr, rec1, rec2, amount_war, amount_hlr);
+                Group Group1 = new Group(mx_hlth_wr, mx_hlth_hlr, imp_strngth1, imp_strngth2, imp_hlr, rec1, rec2, amount_war, amount_hlr);
+                Group Group2 = new Group(mx_hlth_wr, mx_hlth_hlr, imp_strngth1, imp_strngth2, imp_hlr, rec1, rec2, amount_war, amount_hlr);
 
-                Form2 Form2 = new Form2(new Battle(group1, group2));
+                Form2 Form2 = new Form2(new Battle(Group1, Group2));
                 Form2.Show();
                 this.Hide();
 

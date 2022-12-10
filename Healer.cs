@@ -8,28 +8,28 @@ namespace LABA6
     public class Healer : Charapter
     {
         [DataMember]
-        private int impact_treatment;
+        private int _impact_treatment;
         public Healer()
         {
-            this.impact_treatment = 0;
+            this._impact_treatment = 0;
         }
         public Healer(string n, int max_h, int im_str, int im_treat, int rec)
         {
-            name = n;
-            max_health = max_h;
-            health = max_health;
-            impact_strength = im_str;
-            impact_treatment = im_treat;
-            recovery = rec;
-            alive = true;
+            _name = n;
+            _max_health = max_h;
+            _health = _max_health;
+            _impact_strength = im_str;
+            _impact_treatment = im_treat;
+            _recovery = rec;
+            _alive = true;
         }
         override public int Strike_at_war()
         {
-            return impact_strength;
+            return _impact_strength;
         }
         override public int Strike_at_hiler()
         {
-            return impact_strength * 2;
+            return _impact_strength * 2;
         }
         public int Impact_treatment
         {
@@ -41,10 +41,10 @@ namespace LABA6
                 }
                 else
                 {
-                    this.impact_treatment = value;
+                    this._impact_treatment = value;
                 }
             }
-            get { return impact_strength; }
+            get { return _impact_strength; }
         }
     }
 }

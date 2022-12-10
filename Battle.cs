@@ -5,36 +5,23 @@ using System.Runtime.Serialization.Json;
 namespace LABA6
 {
     [DataContract]
-    public class Battle
+    public class Battle: Statistics
     {
         [DataMember]
-        Group group1;
+        public Group Group1 { get; set; }
         [DataMember]
-        Group group2;
+        public Group Group2 { get; set; }
         [DataMember]
-        int active_group_number;
+        private int _active_group_number;
 
-        [DataMember]
-        int moves;
-        [DataMember]
-        int losses1, losses2;
-
-        public Group Group1
+        public Battle(Group Group1, Group Group2)
         {
-            get { return group1; }
-        }
-        public Group Group2
-        {
-            get { return group2; }
-        }
-        public Battle(Group group1, Group group2)
-        {
-            this.group1 = group1;
-            this.group2 = group2;
-            this.active_group_number = 1;
-            this.moves = 0;
-            this.losses1 = 0;
-            this.losses2 = 0;
+            this.Group1 = Group1;
+            this.Group2 = Group2;
+            this._active_group_number = 1;
+            this.MovesCount = 0;
+            this.Losses1 = 0;
+            this.Losses2 = 0;
         }
         public string List(Group group)
         {
@@ -42,7 +29,7 @@ namespace LABA6
             log += "Воины: \n";
 
             int j = 0;
-            for (int i = 0; i < group1.L_w; i++)
+            for (int i = 0; i < group.Count_warriors; i++)
             {
                 var war = group.War_Index(i);
                 if (war.Alive)
@@ -52,7 +39,7 @@ namespace LABA6
                 }
             }
             log += "Целители: \n";
-            for (int i = 0; i < group1.L_h; i++)
+            for (int i = 0; i < group.Count_healers; i++)
             {
                 var hlr = group.Hlr_index(i);
                 if (hlr.Alive)
@@ -62,27 +49,24 @@ namespace LABA6
         }
         public int Active_group_number
         {
-            get { return active_group_number; }
+            get { return _active_group_number; }
         }
         public void Progress()
         {
-            bool NewMove = false;
-            if (active_group_number == 1)
-                NewMove = group1.DoMove();
-            else
-                NewMove = group2.DoMove();
+            bool NewMove = (_active_group_number == 1) ? (Group1.DoMove()):(Group2.DoMove());
 
             if (NewMove == true)
             {
-                if (active_group_number == 1)
-                    active_group_number = 2;
+                if (_active_group_number == 1)
+                    _active_group_number = 2;
                 else
-                    active_group_number = 1;
-                moves++;
-                if (moves % 2 == 0)
+                    _active_group_number = 1;
+                MovesCount++;
+
+                if (MovesCount % 2 == 0)
                 {
-                    group1 = Rec(group1);
-                    group2 = Rec(group2);
+                    Group1 = Rec(Group1);
+                    Group2 = Rec(Group2);
                 }
             }
 
@@ -92,47 +76,47 @@ namespace LABA6
         {
             if (index <= 0) throw new Exception("Индекс меньше или равен 0");
 
-            var group_a = (active_group_number == 1) ? (Group1) : (Group2);
-            var group_d = (active_group_number != 1) ? (Group1) : (Group2);
+            var group_a = (_active_group_number == 1) ? (Group1) : (Group2);
+            var group_d = (_active_group_number != 1) ? (Group1) : (Group2);
 
-            if (index > group_d.L_h + group_d.L_w) throw new Exception("Индекс слишком большой");
+            if (index > group_d.Count_healers + group_d.Count_warriors) throw new Exception("Индекс слишком большой");
 
-            if (index <= group_d.L_w)
+            if (index <= group_d.Count_warriors)
             {
-                if (group_a.Active_hum_number <= group_a.L_w)
+                if (group_a.Active_hum_number <= group_a.Count_warriors)
                 {
                     group_d.War_Index(index - 1).Damage(group_a.War_Index(group_a.Active_hum_number - 1).Strike_at_war());
                 }
                 else
                 {
-                    group_d.War_Index(index - 1).Damage(group_a.Hlr_index(group_a.Active_hum_number - group_a.L_w - 1).Strike_at_hiler());
+                    group_d.War_Index(index - 1).Damage(group_a.Hlr_index(group_a.Active_hum_number - group_a.Count_warriors - 1).Strike_at_hiler());
                 }
             }
             else
             {
-                if (group_a.Active_hum_number <= group_a.L_w)
+                if (group_a.Active_hum_number <= group_a.Count_warriors)
                 {
-                    group_d.Hlr_index(index - group_d.L_w - 1).Damage(group_a.War_Index(group_a.Active_hum_number - 1).Strike_at_war());
+                    group_d.Hlr_index(index - group_d.Count_warriors - 1).Damage(group_a.War_Index(group_a.Active_hum_number - 1).Strike_at_war());
                 }
                 else
                 {
-                    group_d.Hlr_index(index - group_d.L_w - 1).Damage(group_a.Hlr_index(group_a.Active_hum_number - group_a.L_w - 1).Strike_at_hiler());
+                    group_d.Hlr_index(index - group_d.Count_warriors - 1).Damage(group_a.Hlr_index(group_a.Active_hum_number - group_a.Count_warriors - 1).Strike_at_hiler());
                 }
             }
         }
         public bool Heal(int index)
         {
-            var group = (active_group_number == 1) ? (Group1) : (Group2);
+            var group = (_active_group_number == 1) ? (Group1) : (Group2);
 
             if (index == group.Active_hum_number) throw new Exception("Нельзя лечить самого себя");
 
-            if (index <= group.L_w)
+            if (index <= group.Count_warriors)
             {
-                group.War_Index(index - 1).Treatment(group.Hlr_index(group.Active_hum_number - group.L_w - 1).Impact_treatment);
+                group.War_Index(index - 1).Treatment(group.Hlr_index(group.Active_hum_number - group.Count_warriors - 1).Impact_treatment);
             }
             else
             {
-                group.Hlr_index(index - group.L_w - 1).Treatment(group.Hlr_index(group.Active_hum_number - group.L_w - 1).Impact_treatment);
+                group.Hlr_index(index - group.Count_warriors - 1).Treatment(group.Hlr_index(group.Active_hum_number - group.Count_warriors - 1).Impact_treatment);
             }
             return true;
         }
@@ -143,39 +127,31 @@ namespace LABA6
         }
         public void HPСalculation()
         {
-            for (int i = 0; i < group1.L_w; i++)
-                if (group1.War_Index(i).Health <= 0)
+            for (int i = 0; i < Group1.Count_warriors; i++)
+                if (Group1.War_Index(i).Health <= 0)
                 {
-                    group1.Delete_character(1, i);
-                    losses1++;
+                    Group1.Delete_character(1, i);
+                    Losses1++;
                 }
-            for (int i = 0; i < group2.L_w; i++)
-                if (group2.War_Index(i).Health <= 0)
+            for (int i = 0; i < Group2.Count_warriors; i++)
+                if (Group2.War_Index(i).Health <= 0)
                 {
-                    losses2++;
-                    group2.Delete_character(1, i);
+                    Losses2++;
+                    Group2.Delete_character(1, i);
                 }
 
-            for (int i = 0; i < group1.L_h; i++)
-                if (group1.Hlr_index(i).Health <= 0)
+            for (int i = 0; i < Group1.Count_healers; i++)
+                if (Group1.Hlr_index(i).Health <= 0)
                 {
-                    losses1++;
-                    group1.Delete_character(2, i);
+                    Losses1++;
+                    Group1.Delete_character(2, i);
                 }
-            for (int i = 0; i < group2.L_h; i++)
-                if (group2.Hlr_index(i).Health <= 0)
+            for (int i = 0; i < Group2.Count_healers; i++)
+                if (Group2.Hlr_index(i).Health <= 0)
                 {
-                    losses2++;
-                    group2.Delete_character(2, i);
+                    Losses2++;
+                    Group2.Delete_character(2, i);
                 }
-        }
-        public int Losses1
-        {
-            get { return losses1; }
-        }
-        public int Losses2
-        {
-            get { return losses2; }
         }
 
     }

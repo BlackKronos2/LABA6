@@ -8,24 +8,24 @@ namespace LABA6
     public class Group
     {
         [DataMember]
-        private const int l1 = 15;
+        private const int length1 = 15;
         [DataMember]
-        private const int l2 = 5;
+        private const int length2 = 5;
         [DataMember]
-        private Warrior[] group_war = new Warrior[l1];
+        private Warrior[] group_war = new Warrior[length1];
         [DataMember]
-        private Healer[] group_hlr = new Healer[l2];
+        private Healer[] group_hlr = new Healer[length2];
         [DataMember]
-        private int l_w;
+        private int _count_warriors;
         [DataMember]
-        private int l_h;
+        private int _count_healers;
 
         [DataMember]
-        private int active_hum_number;
+        private int _active_number;
 
         public Group(int mx_hlth_wr, int mx_hlth_hlr, int imp_strngth1, int imp_strngth2, int imp_hlr, int rec1, int rec2, int amount_war, int amount_hlr)
         {
-            this.active_hum_number = 1;
+            this._active_number = 1;
             for (int i = 0; i < amount_war; i++)
             {
                 string name = $"Warrior{i + 1}";
@@ -37,17 +37,17 @@ namespace LABA6
                 this.Add_hlr(name, mx_hlth_hlr, imp_strngth2, imp_hlr, rec2);
             }
         }
-        public int L_w
+        public int Count_warriors
         {
-            get { return l_w; }
+            get { return _count_warriors; }
         }
-        public int L_h
+        public int Count_healers
         {
-            get { return l_h; }
+            get { return _count_healers; }
         }
         public int Active_hum_number
         {
-            get { return active_hum_number; }
+            get { return _active_number; }
         }
         public Warrior War_Index(int index)
         {
@@ -59,8 +59,8 @@ namespace LABA6
         }
         public string GetStat()
         {
-            int index = active_hum_number;
-            if (index <= L_w)
+            int index = _active_number;
+            if (index <= Count_warriors)
             {
                 var war = War_Index(index - 1);
                 return $"{war.Name} \n Здоровье {war.Health}/{war.Max_health}\n " +
@@ -68,7 +68,7 @@ namespace LABA6
             }
             else
             {
-                index -= L_w;
+                index -= Count_warriors;
                 var hlr = Hlr_index(index - 1);
                 return $"{hlr.Name} \n Здоровье {hlr.Health}/{hlr.Max_health}\n " +
                     $"Сила удара: {hlr.Impact_strength}\n Сила регенерации: {hlr.Impact_treatment}\nЕстественная регенерация: {hlr.Recovery}";
@@ -77,10 +77,10 @@ namespace LABA6
 
         public bool DoMove()
         {
-            active_hum_number++;
-            if (active_hum_number > l_w + l_h)
+            _active_number++;
+            if (_active_number > _count_warriors + _count_healers)
             {
-                active_hum_number = 1;
+                _active_number = 1;
                 return true;
             }
             return false;
@@ -108,9 +108,9 @@ namespace LABA6
 
         public void Recovery()
         {
-            for (int i = 0; i < l_w; i++)
+            for (int i = 0; i < _count_warriors; i++)
                 group_war[i].Treatment(group_war[i].Recovery);
-            for (int i = 0; i < l_h; i++)
+            for (int i = 0; i < _count_healers; i++)
                 group_hlr[i].Treatment(group_hlr[i].Recovery);
         }
 
@@ -119,63 +119,63 @@ namespace LABA6
             if (type == 1)
             {
                 group_war[index] = new Warrior();
-                while (index < l_w)
+                while (index < _count_warriors)
                 {
                     index++;
                     group_war[index - 1] = group_war[index];
                 }
                 group_war[index - 1] = new Warrior();
-                l_w--;
+                _count_warriors--;
             }
             else
             {
                 group_hlr[index] = new Healer();
-                while (index < l_h)
+                while (index < _count_healers)
                 {
                     index++;
                     group_hlr[index - 1] = group_hlr[index];
                 }
                 group_hlr[index - 1] = new Healer();
-                l_h--;
+                _count_healers--;
             }
         }
 
         public void Add_war(string n, int mx_hlth_wr, int imp_strngth1, int rec1)
         {
-            group_war[l_w] = new Warrior(n, mx_hlth_wr, imp_strngth1, rec1);
-            l_w++;
+            group_war[_count_warriors] = new Warrior(n, mx_hlth_wr, imp_strngth1, rec1);
+            _count_warriors++;
         }
         public void Add_hlr(string n, int mx_hlth_wr, int imp_strngth1, int imp_hlr, int rec2)
         {
-            group_hlr[l_h] = new Healer(n, mx_hlth_wr, imp_strngth1, imp_hlr, rec2);
-            l_h++;
+            group_hlr[_count_healers] = new Healer(n, mx_hlth_wr, imp_strngth1, imp_hlr, rec2);
+            _count_healers++;
         }
 
 
         public void Interaction(bool d, int i, int hp)
         {
             if (d == false)
-                if (i <= l_w)
+                if (i <= _count_warriors)
                 {
                     if (group_war[i - 1].Name == "") Console.WriteLine("выбран неправильный индекс");
                     group_war[i - 1] = Treatment(group_war[i - 1], hp);
                 }
                 else
                 {
-                    if (group_hlr[i - l_w - 1].Name == "") Console.WriteLine("выбран неправильный индекс");
-                    group_hlr[i - l_w - 1] = Treatment(group_hlr[i - l_w - 1], hp);
+                    if (group_hlr[i - _count_warriors - 1].Name == "") Console.WriteLine("выбран неправильный индекс");
+                    group_hlr[i - _count_warriors - 1] = Treatment(group_hlr[i - _count_warriors - 1], hp);
                 }
             else
             {
-                if (i <= l_w)
+                if (i <= _count_warriors)
                 {
                     if (group_war[i - 1].Name == "") Console.WriteLine("выбран неправильный индекс");
                     group_war[i - 1] = Damage(group_war[i - 1], hp);
                 }
                 else
                 {
-                    if (group_hlr[i - l_w - 1].Name == "") Console.WriteLine("выбран неправильный индекс");
-                    group_hlr[i - l_w - 1] = Damage(group_hlr[i - l_w - 1], hp);
+                    if (group_hlr[i - _count_warriors - 1].Name == "") Console.WriteLine("выбран неправильный индекс");
+                    group_hlr[i - _count_warriors - 1] = Damage(group_hlr[i - _count_warriors - 1], hp);
                 }
             }
         }

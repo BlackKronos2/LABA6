@@ -52,7 +52,7 @@ namespace LABA6
             var group = (battle.Active_group_number == 1) ? (battle.Group1) : (battle.Group2);
 
             richTextBox3.Text = $"Группа {battle.Active_group_number}\n" + group.GetStat();
-            if (group.Active_hum_number <= group.L_w)
+            if (group.Active_hum_number <= group.Count_warriors)
                 button2.Enabled = false;
             else
                 button2.Enabled = true;
@@ -75,7 +75,7 @@ namespace LABA6
                 if (textBox1.Text == string.Empty || textBox1.Text == "") throw new Exception();
 
                 var group = (battle.Active_group_number == 1) ? (battle.Group2) : (battle.Group1);
-                int count = group.L_h + group.L_w;
+                int count = group.Count_healers + group.Count_warriors;
 
                 battle.Attack(index);
  
@@ -118,18 +118,10 @@ namespace LABA6
 
         private void CharacterCount()
         {
-            if ((battle.Group1.L_w + battle.Group1.L_h == 0))
-            {
-                Form3 Form3 = new Form3(2, battle.Losses1, battle.Losses2);
-                Form3.Show();
-                this.Hide();
-            }
-            else if (battle.Group2.L_w + battle.Group2.L_h == 0)
-            {
-                Form3 Form3 = new Form3(1, battle.Losses1, battle.Losses2);
-                Form3.Show();
-                this.Hide();
-            }
+            if ((battle.Group1.Count_warriors + battle.Group1.Count_healers == 0))
+                battle.EndGame(2);
+            else if (battle.Group2.Count_warriors + battle.Group2.Count_healers == 0)
+                battle.EndGame(1);
         }
 
         private void textBox1_Click(object sender, EventArgs e)

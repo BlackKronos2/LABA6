@@ -6,20 +6,20 @@ using System.Runtime.Serialization.Json;
 namespace LABA6
 {
     [DataContract]
-    public class Charapter
+    public abstract class Charapter
     {
         [DataMember]
-        protected string name;
+        protected string _name;
         [DataMember]
-        protected int health;
+        protected int _health;
         [DataMember]
-        protected int max_health;
+        protected int _max_health;
         [DataMember]
-        protected int impact_strength;
+        protected int _impact_strength;
         [DataMember]
-        protected int recovery;
+        protected int _recovery;
         [DataMember]
-        protected bool alive;
+        protected bool _alive;
 
         public string Name
         {
@@ -31,10 +31,10 @@ namespace LABA6
                 }
                 else
                 {
-                    this.name = value;
+                    this._name = value;
                 }
             }
-            get { return name; }
+            get { return _name; }
         }
         public int Max_health
         {
@@ -46,15 +46,15 @@ namespace LABA6
                 }
                 else
                 {
-                    this.max_health = value;
-                    this.health = value;
+                    this._max_health = value;
+                    this._health = value;
                 }
             }
-            get { return max_health; }
+            get { return _max_health; }
         }
         public int Health
         {
-            get { return health; }
+            get { return _health; }
         }
         public int Impact_strength
         {
@@ -66,10 +66,10 @@ namespace LABA6
                 }
                 else
                 {
-                    this.impact_strength = value;
+                    this._impact_strength = value;
                 }
             }
-            get { return impact_strength; }
+            get { return _impact_strength; }
         }
         public int Recovery
         {
@@ -81,36 +81,36 @@ namespace LABA6
                 }
                 else
                 {
-                    this.recovery = value;
+                    this._recovery = value;
                 }
             }
-            get { return recovery; }
+            get { return _recovery; }
         }
         public bool Alive
         {
-            set { this.alive = value; }
-            get { return alive; }
+            set { this._alive = value; }
+            get { return _alive; }
         }
         public void Damage(int a)
         {
-            if (health - a <= 0)
-                health = 0;
+            if (_health - a <= 0)
+                _health = 0;
             else
-                health -= a;
+                _health -= a;
         }
         public void Treatment(int a)
         {
-            if (health + a >= max_health)
-                health = max_health;
+            if (_health + a >= _max_health)
+                _health = _max_health;
             else
-                health += a;
+                _health += a;
         }
         public virtual int Strike_at_war() {
-            return impact_strength;
+            return _impact_strength;
         }
         public virtual int Strike_at_hiler()
         {
-            return impact_strength;
+            return _impact_strength;
         }
     }
 }

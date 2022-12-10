@@ -8,29 +8,29 @@ namespace LABA6
     {
         public Warrior()
         {
-            this.name = "";
-            this.alive = false;
-            this.health = 0;
-            this.max_health = 0;
-            this.impact_strength = 0;
-            this.recovery = 0;
+            _name = "";
+            _alive = false;
+            _health = 0;
+            _max_health = 0;
+            _impact_strength = 0;
+            _recovery = 0;
         }
         public Warrior(string n, int max_h, int im_str, int rec)
         {
-            name = n;
-            max_health = max_h;
-            health = max_h;
-            impact_strength = im_str;
-            recovery = rec;
-            alive = true;
+            _name = n;
+            _max_health = max_h;
+            _health = max_h;
+            _impact_strength = im_str;
+            _recovery = rec;
+            _alive = true;
         }
         override public int Strike_at_war()
         {
-            return impact_strength;
+            return _impact_strength;
         }
         override public int Strike_at_hiler()
         {
-            return impact_strength * 2;
+            return _impact_strength * 2;
         }
     }
 }
